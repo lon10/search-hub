@@ -1,0 +1,17 @@
+= form_with(url: github_repositories_search_path, method: 'post') do |form|
+  = form.label(:search_string, 'Search Github Repositories: (for example: search-hub+user:lon10)')
+  div
+    = form.text_field(:search_string)
+    = form.submit('Search')
+
+- if @repos_list.present?
+  h4
+    | Total Count
+    div = @repos_list.total_count
+  hr
+  - @repos_list.repos.each do |repo|
+    .repo_#{repo.id}
+      h4 = repo.name
+      h5 = repo.description
+      div = link_to(repo.full_name, repo.html_url)
+    hr
